@@ -8,6 +8,9 @@ import bt.runtime.BtClient;
 import bt.runtime.BtRuntime;
 import com.pjerebic.remotedownloader.torrent.Downloader;
 import com.pjerebic.remotedownloader.torrent.TorrentInfoProvider;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,6 +27,8 @@ public class MagnetDownloader implements Downloader {
     public BtRuntime getRuntime() {
         return runtime;
     }
+
+    private static Logger logger = Logger.getLogger(MagnetDownloader.class);
 
     @Override
     public void download(String link, String path) {
@@ -51,8 +56,8 @@ public class MagnetDownloader implements Downloader {
                 TorrentInfoProvider.updateTorrentState(currentTorrent, state);
             }
             if (state.getPiecesRemaining() == 0) {
-                System.out.println("Finished downloading");
                 client.stop();
+                logger.log(Level.INFO, currentTorrent.getName() + ": finished downloading");
             }
         }, 1000);
     }

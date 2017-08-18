@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Browser</title>
+</head>
+<body>
+<form th:action="@{/}">
+    <input type="hidden" name="storage" th:value="${currentPath}"/>
+    <input type="submit" value="Choose this directory"/>
+</form>
+<div th:if="${back}">
+    <a th:href="@{/browse(path=${back})}">
+        <!--<div th:text="${back}"><br/></div>-->
+        ..<br/>
+    </a>
+</div>
+<div th:each="file : ${files}">
+    <div th:if="${file.isDirectory()} == true">
+        <a th:href="@{/browse(path=${file})}">
+            <div th:text="${file}"></div>
+        </a>
+    </div>
+    <div th:unless="${file.isDirectory()} == true">
+        <div th:text="${file}"></div>
+    </div>
+</div>
+</body>
+</html>
