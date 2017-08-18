@@ -22,13 +22,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+        <bt-version>1.4</bt-version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -53,11 +50,29 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+
+        <!-- Torrent -->
+
+        <dependency>
+            <groupId>com.github.atomashpolskiy</groupId>
+            <artifactId>bt-core</artifactId>
+            <version>${bt-version}</version>
+        </dependency>
+        <!-- for the sake of keeping the core with minimum number of 3-rd party
+             dependencies HTTP tracker support is shipped as a separate module;
+             you may omit this dependency if only UDP trackers are going to be used -->
+        <dependency>
+            <groupId>com.github.atomashpolskiy</groupId>
+            <artifactId>bt-http-tracker-client</artifactId>
+            <version>${bt-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.atomashpolskiy</groupId>
+            <artifactId>bt-dht</artifactId>
+            <version>${bt-version}</version>
+        </dependency>
+
+
 	</dependencies>
 
 	<build>
