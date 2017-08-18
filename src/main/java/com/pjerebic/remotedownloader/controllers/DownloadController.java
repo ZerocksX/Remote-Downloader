@@ -23,14 +23,18 @@ public class DownloadController {
      * @return template name
      */
     @RequestMapping(value = "/download", method = RequestMethod.POST)
-    public String processDownloadLink(@RequestParam("link") String link, Model model) {
+    public String processDownloadLink(@RequestParam("link") String link, @RequestParam("storage") String storage, Model model) {
         link = link.trim();
-        if (!link.isEmpty()) {
-            model.addAttribute("link", link);
+        storage = storage.trim();
+        if (link.isEmpty() || storage.isEmpty()) {
+            throw new RuntimeException();
         }
+
+        model.addAttribute("link", link);
+
         Downloader downloader = DownloaderProvider.getDownloader(DownloadType.Magnet);
         if (downloader != null) {
-            downloader.download(link, "C:\\Users\\Pavao\\Documents\\test");
+            downloader.download(link, storage);
         } else {
             System.out.println("Could not initialize downloader");
         }
