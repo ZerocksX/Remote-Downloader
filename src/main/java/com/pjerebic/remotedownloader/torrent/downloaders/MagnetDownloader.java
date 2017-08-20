@@ -8,9 +8,9 @@ import bt.runtime.BtClient;
 import bt.runtime.BtRuntime;
 import com.pjerebic.remotedownloader.torrent.Downloader;
 import com.pjerebic.remotedownloader.torrent.TorrentInfoProvider;
+import com.pjerebic.remotedownloader.torrent.Utils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -50,6 +50,7 @@ public class MagnetDownloader implements Downloader {
                 .build();
 
         client.startAsync(state -> {
+            logger.log(Level.INFO, Utils.stateInfo(state));
             Torrent currentTorrent = client.getSession().getTorrent();
             if(!currentTorrent.getTorrentId().toString().equals("0000000000000000000000000000000000000000")){ //stub torrent
                 TorrentInfoProvider.addTorrent(client);

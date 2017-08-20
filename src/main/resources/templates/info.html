@@ -5,8 +5,23 @@
     <title>Info</title>
 </head>
 <body>
-<div th:each="myTorrentInfo : ${torrentList}">
-    <div th:text = "${myTorrentInfo}"></div>
-</div>
+<table border="1">
+    <tr>
+        <th>NAME</th>
+        <th>SIZE</th>
+        <th>STATUS</th>
+        <th>SPEED</th>
+        <th>ETA</th>
+        <th>AVG SPEED</th>
+    </tr>
+    <tr th:each="downloadInfo : ${torrentList}">
+        <td th:text="${downloadInfo.getDownloadName()}">Unknown</td>
+        <td th:text="${downloadInfo.getDownloadSize()+' KB'}">0</td>
+        <td th:text="${downloadInfo.getDownloadedPercentage()+'%'}">0</td>
+        <td th:text="${downloadInfo.getCurrentSpeed()+' KB/s'}">0</td>
+        <td th:text="${downloadInfo.getEstimatedRemainingTime()+' s'}">0</td>
+        <td th:text="${downloadInfo.getAverageSpeed()+' KB/s'}">0</td>
+    </tr>
+</table>
 </body>
 </html>
